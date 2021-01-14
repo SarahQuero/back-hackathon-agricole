@@ -5,6 +5,10 @@ const getProfilAcheteur = async id => {
     'SELECT a.name, a.type, count(t.price) AS nb, ROUND(SUM(t.quantity),2) AS somme FROM acheteurs AS a JOIN transactions AS t ON a.id=t.acheteurs_id WHERE a.id=?',
     [id]
   );
+  res.map((el) => {
+    el.role=false;
+    return el; 
+  })
   return res;
 };
 

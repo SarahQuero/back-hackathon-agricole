@@ -41,7 +41,7 @@ const getAllAcheteurs = async () => {
     return item;
   });
   res.map(el => {
-    el.role = true;
+    el.role = false;
     return el;
   });
   return res;

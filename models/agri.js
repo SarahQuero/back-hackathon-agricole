@@ -6,16 +6,19 @@ const getAllAgri = async () => {
     const trans = await db.query("SELECT agriculteurs_id AS idagri, category FROM transactions, produits WHERE transactions.produits_id = produits.id");
     const villes = await db.query("SELECT zipcode, longitude, latitude FROM villes WHERE zipcode LIKE '%000'");
     trans.map((item) => {
-        if (!res[item.idagri].type) {
-            res[item.idagri].type = []
+        if (!res[item.idagri - 1].type) {
+            res[item.idagri - 1].type = [];
         }
-        if (!res[item.idagri].type.includes(item.category)) {
-            res[item.idagri].type.push(item.category)
+        if (!res[item.idagri - 1].type.includes(item.category)) {
+            res[item.idagri - 1].type.push(item.category);
         }
         return item;
     })
     res.map((el) => {
         el.role = true;
+        if (!el.type) {
+            el.type = []
+        }
         return el;
     });
     return {res, villes};

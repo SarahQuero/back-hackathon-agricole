@@ -10,9 +10,20 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
-connection.query('SELECT 1 + 1 AS solution', function(error, results, fields) {
-  if (error) throw error;
-  console.log('The solution is: ', results[0].solution);
-});
+const query = (...args) => {
+  return new Promise((resolve, reject) => {
+    connection.query(...args, (err, res) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    });
+  });
+}
 
-module.exports = connection;
+
+module.exports = {
+  connection,
+  query,
+}

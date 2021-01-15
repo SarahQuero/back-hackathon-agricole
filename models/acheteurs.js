@@ -9,7 +9,7 @@ const getProfilAcheteur = async id => {
     el.role = false;
     return el;
   });
-  return res;
+  return res[0];
 };
 
 const getTransAcheteur = async id => {
